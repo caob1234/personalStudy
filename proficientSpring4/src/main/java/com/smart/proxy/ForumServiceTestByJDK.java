@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Proxy;
 
-public class ForumServiceTest {
+public class ForumServiceTestByJDK {
     @Test
     public void proxy(){
         ForumService target = new ForumServiceImpl();
