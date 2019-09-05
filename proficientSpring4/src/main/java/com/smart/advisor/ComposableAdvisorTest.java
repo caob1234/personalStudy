@@ -3,13 +3,13 @@ package com.smart.advisor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
-public class ControlFlowAdvisorTest {
+public class ComposableAdvisorTest {
     @Test
-    public void flow(){
-        String configPath="com/smart/advisor/control-flow-advisor-beans.xml";
+    public void main(){
+        String configPath = "com/smart/advisor/compsable-advisor-beans.xml";
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(configPath);
+        Waiter waiter = (Waiter) ctx.getBean("waiter4");
         WaiterDelegate waiterDelegate = new WaiterDelegate();
-        Waiter waiter = (Waiter) ctx.getBean("waiter3");
         waiterDelegate.setWaiter(waiter);
         waiter.serveTo("Perter");
         waiter.greetTo("Perter");

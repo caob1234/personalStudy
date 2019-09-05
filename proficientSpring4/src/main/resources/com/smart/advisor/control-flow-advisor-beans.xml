@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+<bean id="greetingAdvice" class="com.smart.advisor.GreetIngBeforeAdvice"/>
+<bean id="waiterTarget" class="com.smart.advisor.Waiter"/>
+<bean id="controlFlowPointcut" class="org.springframework.aop.support.ControlFlowPointcut">
+    <constructor-arg type="java.lang.Class" value="com.smart.advisor.WaiterDelegate"/>
+    <constructor-arg type="java.lang.String" value="service"/>
+</bean>
+<bean id="controlFlowAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+      p:advice-ref="greetingAdvice" p:pointcut-ref="controlFlowPointcut"/>
+<bean id="waiter3" class="org.springframework.aop.framework.ProxyFactoryBean"
+      p:interceptorNames="controlFlowAdvisor" p:target-ref="waiterTarget"
+      p:proxyTargetClass="true"/>
 </beans>
