@@ -17,7 +17,7 @@ public class ToolTest {
         for (Method method:methods){
             NeedTest needTest =method.getAnnotation(NeedTest.class);
             if (needTest!=null){
-                if (needTest.value()){
+                if (needTest.isOrNo()){
                     System.out.println(method.getName() + " need test");
                 }else {
                     System.out.println(method.getName() + " not need test");

@@ -8,13 +8,12 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfig {
 
     @Autowired
-    private DaoConfig daoConfig;
+    private LogDao logDao;
 
     @Bean
     public LogonService logonService(){
         LogonService logonService = new LogonService();
-        logonService.setLogDao(daoConfig.logDao());
-        logonService.setUserDao(daoConfig.userDao());
+        logonService.setLogDao(logDao);
         return logonService;
     }
 }

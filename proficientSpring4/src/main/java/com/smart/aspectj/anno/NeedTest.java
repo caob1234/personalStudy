@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface NeedTest {
-    boolean value() default true;
+    boolean isOrNo() default true;
 }
