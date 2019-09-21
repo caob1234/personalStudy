@@ -1,0 +1,1 @@
+在已经导入的@Configuration注解类里用@Bean注解定义声明过得，可以使用@Autowired注解注入之后访问。
