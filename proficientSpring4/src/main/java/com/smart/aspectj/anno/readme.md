@@ -1,11 +1,11 @@
-#java5.0注解知识快速进阶
-##1.了解注解
+# java5.0注解知识快速进阶
+## 1.了解注解
 >对于java开发人员来说，在编写代码时，除源程序外，还会使用Javadoc标签对类、方法或成员变量进行注释，以便利用Javadoc工具生成和源码对应的注释文档。这些@param、@return等Javadoc标签就是注解标签，它们为第三方工具提供了描述程序代码的注释信息。
 java5.0注解可以看作是Javadoc和Xdoclet标签的延伸和发展。在java5.0中可以自定义这些注解，并通过反射机制获取类中标注的注解，完成特定的功能。
 注解是代码的附属信息，它遵循一个基本原则：注解不能直接干扰代码的运行，无论增加或删除注解，代码都能够正常运行。
 Java语言解释器会忽略这些注解，而有第三方工具负责对注解进行处理。第三方工具可以通过注解间接控制代码的运行，
 他们通过java反射机制读取注解的信息，并根据这些信息更改目标程序的逻辑，而这也是spring AOP对@AspectJ提供支持所采取的方法。
-##2.一个简单的注解类
+## 2.一个简单的注解类
 ```
 package com.smart.aspectj.anno;
 
@@ -67,7 +67,7 @@ The TYPE_USE constant includes type declarations and type parameter declarations
 以上一堆主要是说明了，ElementType是为了句法定位，即注解可以出现在程序中什么位置的简单分类。比如，
 用元注解（meta-annotated）@Target(ElementType.Filed)注释的注解，只能作为字段修饰符被写入。
 
-##3.测试注解类NeedTest
+## 3.测试注解类NeedTest
 
 ```
 package com.smart.aspectj.anno;
