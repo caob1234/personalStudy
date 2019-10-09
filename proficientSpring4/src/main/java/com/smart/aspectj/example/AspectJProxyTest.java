@@ -1,7 +1,7 @@
 package com.smart.aspectj.example;
 
 import com.smart.NaiveWaiter;
-import com.smart.advice.Waiter;
+import com.smart.Waiter;
 import com.smart.aspectj.aspectj.PreGreetingAspect;
 import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.testng.annotations.Test;

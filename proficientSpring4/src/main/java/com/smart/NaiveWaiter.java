@@ -1,7 +1,5 @@
 package com.smart;
 
-import com.smart.advice.Waiter;
-
 public class NaiveWaiter implements Waiter {
     @Override
     public void greetTo(String clientName) {
