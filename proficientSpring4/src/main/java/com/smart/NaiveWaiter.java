@@ -1,5 +1,6 @@
 package com.smart;
 
+@Monitorable("11111")
 public class NaiveWaiter implements Waiter {
     @Override
     public void greetTo(String clientName) {
