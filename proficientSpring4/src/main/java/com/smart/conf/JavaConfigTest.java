@@ -13,8 +13,8 @@ public class JavaConfigTest {
         ctx.register(ServiceConfigC.class);
         ctx.refresh();
         LogonService logonService = ctx.getBean(LogonService.class);
-        UserDao userDao = ctx.getBean(UserDao.class);
         logonService.printHello();
+        UserDao userDao = ctx.getBean(UserDao.class);
         System.out.println(userDao.printName("Trump"));
         DaoConfig daoConfig = ctx.getBean(DaoConfig.class);
         System.out.println(daoConfig.userDao().printName("Tom"));

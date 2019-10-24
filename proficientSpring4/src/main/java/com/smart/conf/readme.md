@@ -10,11 +10,27 @@ public class UserDao {
     }
 }
 
-package com.smart.conf;
-
 public class LogDao {
     public void printHello() {
         System.out.println("LogDao say Hello world!");
+    }
+}
+
+public class LogonService {
+    private LogDao logDao;
+    private UserDao userDao;
+
+    public void setLogDao(LogDao logDao) {
+        this.logDao = logDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public void printHello() {
+        System.out.println("LogonService say Hello world!");
+        logDao.printHello();
     }
 }
 
@@ -52,13 +68,19 @@ public class JavaConfigTest {
         ctx.register(ServiceConfigC.class);
         ctx.refresh();
         LogonService logonService = ctx.getBean(LogonService.class);
-        UserDao userDao = ctx.getBean(UserDao.class);
         logonService.printHello();
+        UserDao userDao = ctx.getBean(UserDao.class);
         System.out.println(userDao.printName("Trump"));
         DaoConfig daoConfig = ctx.getBean(DaoConfig.class);
         System.out.println(daoConfig.userDao().printName("Tom"));
     }
 }
+/* Output
+LogonService say Hello world!
+LogDao say Hello world!
+My name is Trump
+My name is Tom
+*/
 
 ```
 
