@@ -41,5 +41,13 @@ springboot由一系列启动器构成，这些启动器构成了一个强大灵�
 
 - [javaConfig项目注解](./src/main/java/com/smart/conf/readme.md)
 
-## 2 IOC容器
+## 2 IoC容器
 
+容器是指管理java类的工具。以什么方式管理呢？控制反转(Inverse of Control)或者说依赖注入(Dependency Injection)。
+
+### 2.1 BeanFactory
+
+BeanFactory是spring底层的容器，相当于spring自身的容器。一般，开发者不会该类。BeanFactory提供了多种实现，最常用
+的是XmlBeanDefinitionReader和DefaultListableBeanFactory(类图如下所示)。
+
+![DefaultListableBeanFactory类图](DefaultListableBeanFactory.png)
