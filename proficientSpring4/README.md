@@ -35,4 +35,11 @@ springboot由一系列启动器构成，这些启动器构成了一个强大灵�
 ### 1.2 SpringBoot相关注解
 
 @SpringBootApplication:该注解其实包含了三个注解@Configuration、@ComponentScan和@EnableAutoConfiguration.
-@Configuration、@Import、@ImportResource、@Bean是JavaConfig项目提供的用于代替xml配置bean的注解。
+@Configuration、@Import、@ImportResource、@Bean是JavaConfig项目提供的用于代替xml配置bean的注解。可以参考如下链接。
+
+- [java5.0注解知识](./src/main/java/com/smart/aspectj/anno/readme.md)
+
+- [javaConfig项目注解](./src/main/java/com/smart/conf/readme.md)
+
+## 2 IOC容器
+
