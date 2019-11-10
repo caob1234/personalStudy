@@ -51,3 +51,10 @@ BeanFactory是spring底层的容器，相当于spring自身的容器。一般，
 的是XmlBeanDefinitionReader和DefaultListableBeanFactory(类图如下所示)。
 
 ![DefaultListableBeanFactory类图](DefaultListableBeanFactory.png)
+
+BeanFactory的类继承结构设计优雅，通过类继承体系可以很容易的了解它具有哪些功能。
+比如，ConfigurableBeanFactory是一个重要的接口，该接口提供了设置类装载器，属性编辑器，容器初始化后置处理器等的方法。从而增加了IoC容器的
+可定制性。HierarchicalBeanFactory是父子级联IoC容器，子容器可以通过该接口方法访问父容器。AutowireCapableBeanFactory定义了容器中的Bean
+按某种规则进行自动装配。
+
+### 2.2 ApplicationContext
