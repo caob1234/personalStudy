@@ -4,14 +4,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleThreadLocal {
+public class SimpleThreadLocal<T> {
     private Map valueMap = Collections.synchronizedMap(new HashMap());
-    public void set(Object newValue){
+    public void set(T newValue){
         valueMap.put(Thread.currentThread(),newValue);
     }
-    public Object get(){
+    public T get(){
         Thread currentThread = Thread.currentThread();
-        Object o = valueMap.get(currentThread);
+        T o = (T) valueMap.get(currentThread);
         if (o == null && !valueMap.containsKey(currentThread)){
             o = initialValue();
             valueMap.put(currentThread,o);
@@ -22,7 +22,7 @@ public class SimpleThreadLocal {
     public void remove(){
         valueMap.remove(Thread.currentThread());
     }
-    public Object initialValue(){
+    public T initialValue(){
         return null;
     }
 }
