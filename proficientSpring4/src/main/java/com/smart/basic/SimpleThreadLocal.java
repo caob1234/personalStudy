@@ -14,7 +14,7 @@ public class SimpleThreadLocal {
         Object o = valueMap.get(currentThread);
         if (o == null && !valueMap.containsKey(currentThread)){
             o = initialValue();
-//            valueMap.put()
+            valueMap.put(currentThread,o);
             set(o);
         }
         return o;

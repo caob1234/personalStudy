@@ -1,14 +1,14 @@
 package com.smart.basic;
 
 public class SequenceNumber {
-    private static ThreadLocal<Integer> seqNum = new ThreadLocal<Integer>(){
+    private static SimpleThreadLocal seqNum = new SimpleThreadLocal(){
         public Integer initialValue(){
             return 0;
         }
     };
     public int getNextNum(){
-        seqNum.set(seqNum.get()+1);
-        return seqNum.get();
+        seqNum.set(1 + (int)seqNum.get());
+        return (int) seqNum.get();
     }
     public static void main(String[] args){
         SequenceNumber sn = new SequenceNumber();
