@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleThreadLocal<T> {
+public class SimpleThreadLocal<T> implements SimpleThreadLocalService<T> {
     private Map valueMap = Collections.synchronizedMap(new HashMap());
     public void set(T newValue){
         valueMap.put(Thread.currentThread(),newValue);
