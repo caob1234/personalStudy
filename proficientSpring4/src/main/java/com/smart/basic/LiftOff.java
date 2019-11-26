@@ -33,7 +33,7 @@ public class LiftOff implements Runnable {
         }
     }
 
-    private String status() {
+    public String status() {
         return Thread.currentThread().getName()
                 +"#"+id+"("+(countDown>0?countDown:"LiftOff!")+"),";
     }
