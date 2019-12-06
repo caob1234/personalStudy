@@ -1,4 +1,6 @@
-package com.smart.basic;
+package com.smart.basic.complicating;
+
+import com.smart.basic.SimpleThreadLocal;
 
 public class SequenceNumber {
     private static SimpleThreadLocal<Integer> seqNum = new SimpleThreadLocal<Integer>(){

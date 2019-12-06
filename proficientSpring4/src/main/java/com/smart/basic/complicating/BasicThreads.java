@@ -1,4 +1,4 @@
-package com.smart.basic;
+package com.smart.basic.complicating;
 
 public class BasicThreads {
     public static void main(String[] args) throws InterruptedException {

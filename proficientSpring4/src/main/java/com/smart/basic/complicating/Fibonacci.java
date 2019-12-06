@@ -1,4 +1,4 @@
-package com.smart.basic;//: generics/Fibonacci.java
+package com.smart.basic.complicating;//: generics/Fibonacci.java
 // Generate a Fibonacci sequence.
 
 public class Fibonacci implements Generator<Integer> {

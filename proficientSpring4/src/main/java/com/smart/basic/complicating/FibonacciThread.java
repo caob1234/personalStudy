@@ -1,4 +1,4 @@
-package com.smart.basic;
+package com.smart.basic.complicating;
 
 public class FibonacciThread implements Runnable {
     private int n=5;

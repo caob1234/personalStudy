@@ -1,4 +1,4 @@
-package com.smart.basic;
+package com.smart.basic.complicating;
 
 public class MainThread {
     public static void main(String[] args){
