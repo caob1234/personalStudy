@@ -1,7 +1,6 @@
 package com.smart.basic.complicating;
 
 //import concurrency.DaemonSpawn;
-import java.util.concurrent.ThreadPoolExecutor;
 
 class Daemon implements Runnable{
     private Thread[] t=new Thread[10];

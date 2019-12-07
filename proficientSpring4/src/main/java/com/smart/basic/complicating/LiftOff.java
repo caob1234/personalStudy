@@ -1,9 +1,6 @@
 package com.smart.basic.complicating;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.TimeUnit;
 
 public class LiftOff implements Runnable {
     protected int countDown = 10;

@@ -3,8 +3,6 @@ package com.smart.advisor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Method;
-
 public class ComposableAdvisorTest {
     @Test
     public void main(){
