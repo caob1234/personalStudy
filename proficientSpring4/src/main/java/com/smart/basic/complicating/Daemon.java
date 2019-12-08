@@ -7,7 +7,15 @@ class Daemon implements Runnable{
     @Override
     public void run() {
         for (int i=0;i<t.length;i++){
-//            t[i] = new Thread(new DaemonSpawn());
+            t[i] = new Thread(new DaemonSpawn());
+        }
+    }
+}
+class DaemonSpawn implements Runnable{
+    @Override
+    public void run() {
+        while (true){
+            Thread.yield();
         }
     }
 }
