@@ -3,7 +3,7 @@ package com.smart.basic.complicating;
 import static net.mindview.util.Print.print;
 
 class Sleeper extends Thread{
-    private int duration;
+    private int duration=0;
 
     public Sleeper(String name,int sleepTime) {
         super(name);
@@ -11,16 +11,25 @@ class Sleeper extends Thread{
         start();
     }
 
+    public Sleeper(String name) {
+        super(name);
+        start();
+    }
+
     @Override
     public void run() {
         try{
-            sleep(duration);
+            if (duration!=0){
+                sleep(duration);
+            }else {
+                print(getName()+" is running");
+            }
         }catch (InterruptedException e){
-            print(getName()+"was inerrupted"+
-                    "isInterrupted"+isInterrupted());
+            print(getName()+" was interrupted "+
+                    "isInterrupted "+isInterrupted());
             return;
         }
-        print(getName()+"has awakened");
+        print(getName()+" has awakened");
     }
 }
 class Joiner extends Thread{
@@ -43,10 +52,11 @@ class Joiner extends Thread{
 }
 public class Joining {
     public static void main(String[] args){
-        Sleeper sleepy=new Sleeper("Sleepy",1500),
+        Sleeper sleepy=new Sleeper("Sleepy"),
                 grumpy=new Sleeper("Grumpy",1500);
         Joiner dopey = new Joiner("Dopey",sleepy),
                 doc=new Joiner("Doc",grumpy);
-        grumpy.interrupt();
+//        dopey.interrupt();
     }
+
 }
