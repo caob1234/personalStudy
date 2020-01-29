@@ -5,7 +5,7 @@ public class EvenGenerator extends IntGenerator {
     public synchronized int next(){
         ++currentEvenValue;
         Thread.yield();
-//        ++currentEvenValue;
+        ++currentEvenValue;
         return currentEvenValue;
     }
     public static void main(String[] args){
