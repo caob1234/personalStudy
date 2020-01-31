@@ -5,13 +5,18 @@ import com.smart.basic.complicating.SyncObject;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Character {
-    protected int energy;
+    protected Integer energy;
     public Character(int energy) {
         this.energy = energy;
     }
     public abstract String beatVoldemort();
-    public synchronized int add(){
-        energy++;
+    public int add(String s,int i){
+        synchronized (energy){
+            System.out.println(s+" add---------------");
+            for (int j=0;j<i;j++){
+                energy++;
+            }
+        }
         return energy;
     };
     public void reduce(){

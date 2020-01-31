@@ -17,6 +17,9 @@ public class Harry extends Character implements Runnable{
     }
     @Override
     public void run() {
-        devilSnare.setEnergy(add());
+        String s="Harry already start:"+energy;
+        System.out.println("");
+        add("",10);
+        devilSnare.setEnergy(energy);
     }
 }

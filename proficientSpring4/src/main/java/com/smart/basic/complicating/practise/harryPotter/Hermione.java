@@ -18,6 +18,9 @@ public class Hermione extends Character implements Runnable {
 
     @Override
     public void run() {
-        devilSnare.setEnergy(add());
+        String s = "Hermione already start:"+energy;
+        System.out.println(s);
+        add(s,15);
+        devilSnare.setEnergy(energy);
     }
 }

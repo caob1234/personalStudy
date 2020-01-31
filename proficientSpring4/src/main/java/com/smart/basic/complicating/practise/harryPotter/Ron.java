@@ -17,6 +17,9 @@ public class Ron extends Character implements Runnable{
 
     @Override
     public void run() {
-        devilSnare.setEnergy(add());
+        String s="Ron already start:"+energy;
+        System.out.println("");
+        add(s,5);
+        devilSnare.setEnergy(energy);
     }
 }

@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Stone {
-    private int energy=0;
+    private Integer energy=new Integer(0);
     public SuccessOfFailure breakDevilSnare() throws ExecutionException, InterruptedException {
         DevilSnare devilSnare=new DevilSnare(energy);
         ExecutorService executorService= Executors.newCachedThreadPool();
