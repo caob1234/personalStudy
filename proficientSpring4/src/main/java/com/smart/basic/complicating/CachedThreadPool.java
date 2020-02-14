@@ -9,6 +9,6 @@ public class CachedThreadPool {
         for (int i=0;i<5;i++){
             executorService.execute(new LiftOff());
         }
-        executorService.shutdown();
+        executorService.shutdownNow();
     }
 }

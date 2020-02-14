@@ -51,7 +51,7 @@ class Entrance implements Runnable{
             }
             print(this+" Total: "+count.increment());
             try{
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.SECONDS.sleep(1);
             }catch (InterruptedException e){
                 print("sleep interrupted");
             }
@@ -82,7 +82,7 @@ public class OrnamentalGarden {
         //Run for a while,then stop and collect the data;
         TimeUnit.SECONDS.sleep(3);
         Entrance.cancel();
-        executorService.shutdown();
+        executorService.shutdownNow();
         if (!executorService.awaitTermination(250,TimeUnit.MILLISECONDS))
             print("Some tasks were not terminated!");
         print("Total: "+Entrance.getTotalCount());

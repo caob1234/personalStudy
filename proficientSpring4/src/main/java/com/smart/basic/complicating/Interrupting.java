@@ -68,15 +68,16 @@ public class Interrupting {
     static void test(Runnable r)throws InterruptedException{
         Future<?> f=exec.submit(r);
         TimeUnit.MILLISECONDS.sleep(100);
+        print("Interrupting "+r.getClass().getName());
+        f.cancel(true);
         print("Interrupt sent to "+r.getClass().getName());
     }
     public static void main(String[] args)throws Exception{
-//        test(new SleepBlocked());
+        test(new SleepBlocked());
         test(new IOBlocked(System.in));
-//        test(new SynchronizedBlocked());
-//        TimeUnit.SECONDS.sleep(3);
-//        print("Aborting with System.exit(0)");
-//        System.exit(0);//...since last 2 interrupts failed
-//        exec.shutdown();
+        test(new SynchronizedBlocked());
+        TimeUnit.SECONDS.sleep(3);
+        print("Aborting with System.exit(0)");
+        System.exit(0);//...since last 2 interrupts failed
     }
 }
