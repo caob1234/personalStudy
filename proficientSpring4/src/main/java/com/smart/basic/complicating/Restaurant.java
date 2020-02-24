@@ -32,10 +32,13 @@ class WaitPerson implements Runnable{
                 synchronized (this) {
                     while (restaurant.meal == null) {
                         wait();
+                        print("After waitPerson wait");
                     }
                 }
                 print("Waitperson got "+restaurant.meal);
+                TimeUnit.MILLISECONDS.sleep(100);
                 synchronized (restaurant.chef){
+                    print("After restaurant.chef sync");
                     restaurant.meal=null;
                     restaurant.chef.notifyAll();
                 }
@@ -57,7 +60,9 @@ class Chef implements Runnable{
             while (!Thread.interrupted()){
                 synchronized (this){
                     while (restaurant.meal!=null){
+                        print("Before chef wait");
                         wait();
+                        print("After chef wait");
                     }
                 }
                 if (++count==10){
@@ -68,7 +73,9 @@ class Chef implements Runnable{
                 synchronized (restaurant.waitPerson){
                     restaurant.meal=new Meal(count);
                     restaurant.waitPerson.notifyAll();
+                    print("After waitPerson notifyAll");
                 }
+                print("Ready sleep or wait");
                 TimeUnit.MILLISECONDS.sleep(100);
             }
         }catch (InterruptedException e){
