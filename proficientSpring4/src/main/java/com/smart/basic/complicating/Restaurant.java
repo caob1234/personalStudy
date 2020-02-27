@@ -3,10 +3,14 @@ package com.smart.basic.complicating;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static net.mindview.util.Print.print;
+import static net.mindview.util.Print.printnb;
 
-class Meal{
+class Meal {
     private final int orderNum;
 
     public Meal(int orderNum) {
@@ -18,15 +22,19 @@ class Meal{
         return "Meal{" + "orderNum=" + orderNum + '}';
     }
 }
-class TableWare{
+
+class TableWare {
     private Meal meal;
 
     public TableWare(Meal meal) {
         this.meal = meal;
     }
 }
-class WaitPerson implements Runnable{
+
+class WaitPerson implements Runnable {
     private Restaurant restaurant;
+    protected Lock lock = new ReentrantLock();
+    protected Condition condition = lock.newCondition();
 
     public WaitPerson(Restaurant restaurant) {
         this.restaurant = restaurant;
@@ -36,17 +44,28 @@ class WaitPerson implements Runnable{
     public void run() {
         try {
             while (!Thread.interrupted()) {
-                synchronized (this) {
-                    while (restaurant.meal == null) {
-                        wait();
-                    }
+                lock.lock();
+                try{
+
+                while (restaurant.meal == null||restaurant.tableWare==null) {
+                    print("waitPerson wait");
+                    condition.await();
                 }
-                print("Waitperson got "+restaurant.meal);
+                }finally {
+                    lock.unlock();
+                }
+
+                printnb("Waitperson got " + restaurant.meal + ".");
                 TimeUnit.MILLISECONDS.sleep(100);
-                synchronized (restaurant.busboy){
-                    restaurant.meal=null;
-                    print("Customers have finished the eating.Notify busboy!");
-                    restaurant.busboy.notifyAll();
+                restaurant.busboy.lock.lock();
+                try {
+
+                restaurant.meal = null;
+                printnb("WaitPerson finished!");
+                TimeUnit.MILLISECONDS.sleep(200);
+                restaurant.busboy.condition.signalAll();
+                }finally {
+                    restaurant.busboy.lock.unlock();
                 }
             }
         } catch (InterruptedException e) {
@@ -54,44 +73,61 @@ class WaitPerson implements Runnable{
         }
     }
 }
-class Chef implements Runnable{
+
+class Chef implements Runnable {
     private Restaurant restaurant;
-    private int count=0;
+    private int count = 0;
+    protected Lock lock = new ReentrantLock();
+    protected Condition condition = lock.newCondition();
+
     public Chef(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
     @Override
     public void run() {
         try {
-            while (!Thread.interrupted()){
-                synchronized (this){
-                    while (restaurant.meal!=null||restaurant.tableWare!=null){
-                        wait();
-                    }
+            print(restaurant.s);
+            while (!Thread.interrupted()) {
+                lock.lock();
+                try {
+
+                while (restaurant.meal != null || restaurant.tableWare != null) {
+                    condition.await();
                 }
-                if (++count==10){
+                }finally {
+                    lock.unlock();
+                }
+
+                if (++count == 10) {
                     print("Out of food.closing");
                     restaurant.executorService.shutdownNow();
                     TimeUnit.MILLISECONDS.sleep(100);
-//                    return;
                 }
                 print("Order up! ");
-                synchronized (restaurant.waitPerson){
-                    restaurant.meal=new Meal(count);
-                    restaurant.tableWare=new TableWare(restaurant.meal);
-                    print("The Chef finished a dish.Notify waitPerson!");
-                    restaurant.waitPerson.notifyAll();
-                }
+                restaurant.waitPerson.lock.lock();
+                try {
+
+                restaurant.meal = new Meal(count);
+                restaurant.tableWare = new TableWare(restaurant.meal);
+                printnb("Chef finished!");
+                restaurant.waitPerson.condition.signalAll();
                 TimeUnit.MILLISECONDS.sleep(100);
+
+                }finally {
+                    restaurant.waitPerson.lock.unlock();
+                }
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             print("Chef interrupted");
         }
     }
 }
-class Busboy implements Runnable{
-    private Restaurant restaurant;
 
+class Busboy implements Runnable {
+    private Restaurant restaurant;
+    protected Lock lock = new ReentrantLock();
+    protected Condition condition = lock.newCondition();
     public Busboy(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
@@ -99,37 +135,50 @@ class Busboy implements Runnable{
     @Override
     public void run() {
         try {
-            while (!Thread.interrupted()){
-                synchronized (this){
-                    while (restaurant.tableWare==null){
-                        wait();
-                    }
-                }
+            while (!Thread.interrupted()) {
+                lock.lock();
+                try{
 
-                synchronized (restaurant.chef){
-                    restaurant.tableWare=null;
-                    print("Busboy washed the dishes.Notify chef!");
-                    restaurant.chef.notifyAll();
+                while (restaurant.tableWare == null||restaurant.meal!=null) {
+                    condition.await();
+                }
+                }finally {
+                    lock.unlock();
+                }
+                restaurant.chef.lock.lock();
+                try {
+
+                restaurant.tableWare = null;
+                printnb("Busboy finished!\n");
+                TimeUnit.MILLISECONDS.sleep(200);
+                restaurant.chef.condition.signalAll();
+                }finally {
+                    restaurant.chef.lock.unlock();
                 }
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             print("BusBoy interrupted");
         }
     }
 }
+
 public class Restaurant {
     Meal meal;
     TableWare tableWare;
-    ExecutorService executorService= Executors.newCachedThreadPool();
-    WaitPerson waitPerson=new WaitPerson(this);
-    Chef chef=new Chef(this);
-    Busboy busboy=new Busboy(this);
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    WaitPerson waitPerson = new WaitPerson(this);
+    Chef chef = new Chef(this);
+    Busboy busboy = new Busboy(this);
+
     public Restaurant() {
         executorService.execute(chef);
         executorService.execute(waitPerson);
         executorService.execute(busboy);
     }
-    public static void main(String[] args){
+
+    StringBuffer s = new StringBuffer("A object");
+
+    public static void main(String[] args) {
         new Restaurant();
     }
 }
