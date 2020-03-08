@@ -108,7 +108,7 @@ class Jammer implements Runnable{
 }
 class Sandwich{
     private Toast top,bottom;
-    private int id;
+    private final int id;
 
     public Sandwich(Toast top, Toast bottom, int id) {
         this.top = top;
