@@ -1,5 +1,7 @@
 package com.smart.basic.complicating;
 
+import com.smart.basic.complicating.practise.Bin;
+import com.smart.basic.complicating.practise.PhilosopherByQueue;
 import org.omg.CORBA.TIMEOUT;
 
 import java.util.concurrent.ExecutorService;
@@ -15,6 +17,7 @@ public class DeadlockingDiningPhilosophers {
 //            strs[i]=i+"";
 //        }
         strs= new String[]{"1", "2", "3"};
+        Bin bin=new Bin();
         int ponder =5;
         if (args.length>0){
             ponder=Integer.parseInt(args[0]);
@@ -29,7 +32,7 @@ public class DeadlockingDiningPhilosophers {
             sticks[i]=new Chopstick();
         }
         for (int i=0;i<size;i++){
-            executorService.execute(new Philosopher(sticks[i],sticks[(i+1)%size], i,ponder));
+            executorService.execute(new PhilosopherByQueue(sticks[i],sticks[(i+1)%size], i,ponder,bin));
         }
         if (args.length==3&&args[2].equals("timeout")){
             TimeUnit.SECONDS.sleep(5);
