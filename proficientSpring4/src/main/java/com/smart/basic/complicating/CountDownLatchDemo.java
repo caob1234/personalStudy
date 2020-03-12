@@ -85,7 +85,7 @@ class WaitingTask implements Runnable{
     public void run() {
         try {
             latch.await();
-            print("Latch barrier passed for"+this);
+            print("Latch barrier passed for "+this);
         }catch (InterruptedException e){
             print(this+" interrupted");
         }
@@ -97,12 +97,12 @@ class WaitingTask implements Runnable{
     }
 }
 public class CountDownLatchDemo {
-    static final int SIZE=100;
+    static final int SIZE=10;
     public static void main(String[] args)throws Exception{
         ExecutorService service= Executors.newCachedThreadPool();
         //All must share a single CountDownLatch object
         CountDownLatch latch=new CountDownLatch(SIZE);
-        for (int i=0;i<10;i++)
+//        for (int i=0;i<10;i++)
             service.execute(new WaitingTask(latch));
         for (int i=0;i<SIZE;i++)
             service.execute(new TaskPortion(latch));

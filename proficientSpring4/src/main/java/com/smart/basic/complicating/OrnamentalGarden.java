@@ -3,6 +3,7 @@ package com.smart.basic.complicating;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +30,7 @@ class Entrance implements Runnable{
     private static List<Entrance> entrances=
             new ArrayList<>();
     private int number=0;
+    private CountDownLatch latch;
     //Doesn't need synchronization to read
     private final int id;
     private static volatile boolean canceled=false;
@@ -36,8 +38,9 @@ class Entrance implements Runnable{
     public static void cancel(){
         canceled=true;
     }
-    Entrance(int id) {
+    Entrance(int id,CountDownLatch latch) {
         this.id = id;
+        this.latch=latch;
         //Keep this task in a list.Also prevents garbage
         //collection of dead tasks;
         entrances.add(this);
@@ -57,6 +60,8 @@ class Entrance implements Runnable{
             }
         }
         print("Stopping "+this);
+        latch.countDown();
+
     }
     public synchronized int getValue() {return number;}
 
@@ -75,13 +80,16 @@ class Entrance implements Runnable{
     }
 }
 public class OrnamentalGarden {
+    private static final int SIZE = 5;
     public static void main(String[] args)throws Exception{
+        CountDownLatch latch=new CountDownLatch(SIZE);
         ExecutorService executorService= Executors.newCachedThreadPool();
-        for (int i=0;i<5;i++)
-            executorService.execute(new Entrance(i));
+        for (int i=0;i<SIZE;i++)
+            executorService.execute(new Entrance(i,latch));
         //Run for a while,then stop and collect the data;
         TimeUnit.SECONDS.sleep(3);
         Entrance.cancel();
+        latch.await();
         executorService.shutdownNow();
         if (!executorService.awaitTermination(250,TimeUnit.MILLISECONDS))
             print("Some tasks were not terminated!");
