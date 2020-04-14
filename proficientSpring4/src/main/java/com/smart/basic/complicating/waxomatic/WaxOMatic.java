@@ -90,3 +90,5 @@ public class WaxOMatic {
         exec.shutdownNow();
     }
 }
+//wait()相当于交通警察，不让你走，不在你这个道的车还可以走；
+//sleep()相当于土匪，堵了之后，谁都别想走。
