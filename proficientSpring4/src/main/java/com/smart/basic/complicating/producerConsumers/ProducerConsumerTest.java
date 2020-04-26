@@ -4,35 +4,38 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-class PublicResource{
-    private volatile int number=0;
-    private final int size =10;
-    public synchronized void increase() throws InterruptedException{
-        while (number>=size){
+class PublicResource {
+    private volatile int number = 0;
+    private final int size = 10;
+
+    public synchronized void increase() throws InterruptedException {
+        while (number >= size) {
 //            try {
-                wait();
+            wait();
 //            }catch (InterruptedException e){
 //                e.printStackTrace();
 //            }
         }
         number++;
-        System.out.println("Produced a publicResource,total "+number);
+        System.out.println("Produced a publicResource,total " + number);
         notifyAll();
     }
-    public synchronized void decrease()throws InterruptedException{
-        while (number<=0){
+
+    public synchronized void decrease() throws InterruptedException {
+        while (number <= 0) {
 //            try {
-                wait();
+            wait();
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
         }
         number--;
-        System.out.println("Consumed a publicResource,total "+number);
+        System.out.println("Consumed a publicResource,total " + number);
         notifyAll();
     }
 }
-class ProducerThread implements Runnable{
+
+class ProducerThread implements Runnable {
     private PublicResource resource;
 
 
@@ -43,18 +46,20 @@ class ProducerThread implements Runnable{
 
     @Override
     public void run() {
-        while (true) {
-            try {
+
+        try {
+            while (!Thread.interrupted()) {
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * 1000));
                 resource.increase();
-            } catch (InterruptedException e) {
-                System.out.println("Producer has been interrupted----------");
-                break;
             }
+        } catch (InterruptedException e) {
+            System.out.println("Producer has been interrupted----------");
         }
+
     }
 }
-class ConsumerThread implements Runnable{
+
+class ConsumerThread implements Runnable {
 
     private PublicResource resource;
 
@@ -66,20 +71,20 @@ class ConsumerThread implements Runnable{
 
     @Override
     public void run() {
-        while (true) {
-            try {
+        try {
+            while (!Thread.interrupted()) {
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * 1000));
                 resource.decrease();
-            } catch (InterruptedException e) {
-                System.out.println("Consumer has been interrupted~~~~~~~~");
-                break;
             }
+        } catch (InterruptedException e) {
+            System.out.println("Consumer has been interrupted~~~~~~~~");
         }
 
     }
 
 
 }
+
 public class ProducerConsumerTest {
     public static void main(String[] args) throws InterruptedException {
         PublicResource resource = new PublicResource();
