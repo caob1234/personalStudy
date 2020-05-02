@@ -102,7 +102,7 @@ public class CountDownLatchDemo {
         ExecutorService service= Executors.newCachedThreadPool();
         //All must share a single CountDownLatch object
         CountDownLatch latch=new CountDownLatch(SIZE);
-//        for (int i=0;i<10;i++)
+        for (int i=0;i<10;i++)
             service.execute(new WaitingTask(latch));
         for (int i=0;i<SIZE;i++)
             service.execute(new TaskPortion(latch));

@@ -15,8 +15,11 @@ public class GreenhouseScheduler {
     public synchronized void setThermostat(String thermostat) {
         this.thermostat = thermostat;
     }
-    ScheduledThreadPoolExecutor scheduledThreadPoolExecutor=new ScheduledThreadPoolExecutor(10);
+    ScheduledThreadPoolExecutor scheduler=new ScheduledThreadPoolExecutor(10);
     public void schedule(Runnable event,long delay){
-        scheduledThreadPoolExecutor.schedule(event,delay, TimeUnit.MILLISECONDS);
+        scheduler.schedule(event,delay, TimeUnit.MILLISECONDS);
+    }
+    public void repeat(Runnable event,long initialDelay,long period){
+        scheduler.scheduleAtFixedRate(event,initialDelay,period,TimeUnit.MILLISECONDS);
     }
 }
