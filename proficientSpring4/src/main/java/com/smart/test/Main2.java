@@ -24,3 +24,4 @@ public class Main2 {
         return j;
     }
 }
+//https://www.nowcoder.com/practice/a35ce98431874e3a820dbe4b2d0508b1?tpId=37&tqId=21225&tPage=1&rp=&ru=/ta/huawei&qru=/ta/huawei/question-ranking
