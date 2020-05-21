@@ -138,6 +138,7 @@ class D implements Runnable {
 
 /**
  * https://www.nowcoder.com/practice/cd99fbc6154d4074b4da0e74224a1582?tpId=37&tqId=21272&tPage=3&rp=&ru=/ta/huawei&qru=/ta/huawei/question-ranking
+ * 利用在锁上调用wait()和notifyAll()实现四个线程交替打印
  */
 public class Main6 {
     public static void main(String[] args) throws InterruptedException {
