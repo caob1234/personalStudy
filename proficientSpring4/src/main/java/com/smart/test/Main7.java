@@ -1,29 +1,39 @@
 package com.smart.test;
 
+import java.util.Scanner;
+class Node<E> {
 
-class ListNode<E> {
-    public static class Node<E> {
-
-        public E getE() {
-            return e;
-        }
-
-        private E e;
-
-
-        public Node<E> getPrev() {
-            return prev;
-        }
-
-        private Node<E> prev;
-
-        public Node(E e, Node<E> prev) {
-            this.e = e;
-            this.prev = prev;
-        }
+    public E getE() {
+        return e;
     }
 
+    private E e;
+
+
+    public Node<E> getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Node<E> prev) {
+        this.prev = prev;
+    }
+
+    private Node<E> prev;
+
+    public Node(E e, Node<E> prev) {
+        this.e = e;
+        this.prev = prev;
+    }
+}
+
+class ListNode<E> {
+
     private int size;
+
+    public int getLength() {
+        return length;
+    }
+
     private int length = 1;
     private Node<E> headNode;
 
@@ -40,17 +50,17 @@ class ListNode<E> {
     }
 
     public Node<E> get(E e) {
-        if (e.equals(this.headNode.e)) {
+        if (e.equals(this.headNode.getE())) {
             return headNode;
         }
         Node<E> currentNode = null;
         Node<E> p = getLastNode();
-        while (p.prev != null) {
-            if (e.equals(p.e)) {
+        while (p.getPrev() != null) {
+            if (e.equals(p.getE())) {
                 currentNode = p;
                 break;
             }
-            p = p.prev;
+            p = p.getPrev();
         }
         return currentNode;
     }
@@ -59,51 +69,92 @@ class ListNode<E> {
         Node<E> newNode = new Node<>(e, p);
         Node<E> p1 = getLastNode();
         Node<E> currentNode = null;
-        while (p1.prev != null) {// loop check previous node whether already had a current node equals p
-            if (p.e.equals(p1.prev.e)) {
+        while (p1.getPrev() != null) {// loop check previous node whether already had a current node equals p
+            if (p.getE().equals(p1.getPrev().getE())) {
                 currentNode = p1;
                 break;
             }
-            p1 = p1.prev;
+            p1 = p1.getPrev();
         }
-        if (currentNode!=null){
-            newNode.prev=p;
-            currentNode.prev=newNode;
-//            lastNode=currentNode;
-        }else {
+        if (currentNode != null) {
+            newNode.setPrev(p);
+            currentNode.setPrev(newNode);
+        } else {
             lastNode = newNode;
         }
         length++;
     }
-    public String getStrs(){
-        Node node=lastNode;
-        StringBuffer s=new StringBuffer();
-        while (node.prev!=null){
-            s=s.append(node.e+" ");
-            node=node.prev;
+
+    public Node<E> getNext(E e) {
+        Node p = lastNode;
+        Node nextNode = null;
+        if (e.equals(p.getE())) {
+            return null;
         }
-        return s.append(headNode.e).reverse().toString();
+        while (p.getPrev() != null) {
+            if (e.equals(p.getPrev().getE())) {
+                nextNode = p;
+                break;
+            }
+            p = p.getPrev();
+        }
+        return nextNode;
+    }
+
+    public void delete(E e) {
+        Node node = get(e);
+        Node previousNode = node.getPrev();
+        Node nextNode = getNext(e);
+        if (nextNode != null) {
+            nextNode.setPrev(previousNode);
+        } else {
+            lastNode = previousNode;
+        }
+        length--;
+    }
+
+    public String getStrs() {
+        Node node = lastNode;
+        StringBuffer s = new StringBuffer();
+        while (node.getPrev() != null) {
+            s = s.append(node.getE() + " ");
+            node = node.getPrev();
+        }
+        return s.append(headNode.getE()).reverse().toString();
     }
 }
 
 public class Main7 {
+    public static Integer convertToInt(String s) {
+        if (s == null || s.isEmpty()) {
+            System.out.println("input a null");
+            return null;
+        } else if (s.toCharArray()[0] > 47 && s.toCharArray()[0] < 58) {
+            return Integer.parseInt(s);
+        } else {
+            System.out.println("input a not resolve data");
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
-        ListNode<Integer> listNode = new ListNode<>(5, 2);
-        if (listNode.get(2) != null) {
-            listNode.add(listNode.get(2), 1);
-            System.out.println(listNode.getStrs());
+        Scanner input = new Scanner(System.in);
 
-        }
-        if (listNode.get(2) != null) {
-            listNode.add(listNode.get(2), 3);
+        while (input.hasNextLine()) {
+            Integer count=input.nextInt();
+            Integer h=input.nextInt();
+            ListNode<Integer> listNode = new ListNode<>(count, h);
+            for (int i = 0; i < count; i++) {
+                Integer pre = input.nextInt();;
+                Integer e = input.nextInt();;
+                if (listNode.get(pre) == null) {
+                    listNode.add(listNode.getLastNode(), pre);
+                }
+                listNode.add(listNode.get(pre), e);
+            }
+            listNode.delete(input.nextInt());
             System.out.println(listNode.getStrs());
-
         }
-        listNode.add(listNode.get(1), 5);
-        System.out.println(listNode.getStrs());
-        listNode.add(listNode.get(5), 4);
-        System.out.println(listNode.getStrs());
-        listNode.add(listNode.get(2), 7);
-        System.out.println(listNode.getStrs());
+        input.close();
     }
 }
