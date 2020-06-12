@@ -108,8 +108,10 @@ public class ArrayUtil {
                 //code
 
             }else {
+                number++;
                 int index=findIndexByValue(searchValue,nextChildNode.data,dist);
                 while (index!=-1){
+                    number++;
                     childNode.childNodes.add(new ChildNode(index));
                     index=findIndexByValue(searchValue,index,dist);
                 }
@@ -117,6 +119,7 @@ public class ArrayUtil {
             }
         }
     }
+    public int number=0;
 
     /**
      * Get next value of search array via searchValue

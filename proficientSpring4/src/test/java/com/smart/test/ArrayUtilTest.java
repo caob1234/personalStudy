@@ -27,13 +27,14 @@ public class ArrayUtilTest {
 
     @Test
     public void testIndexOf() throws Exception {
-        int[] dist = {1,5,5,2,4,4,3,6,4,7,6};
-        int[] search = {5, 4, 6};
+        int[] dist = {1,5,5,2,4,4,3,6,4,7,6,3,6};
+        int[] search = {5, 2};
 
 
         int rootIndex=arrayUtil.findIndexByValue(search[0],0,dist);
         ChildNode childNode=new ChildNode(rootIndex);
         arrayUtil.visitTree(rootIndex,search[1],search,dist,childNode);
+        System.out.println(arrayUtil.number);
         System.out.println(arrayUtil.indexOf(search,dist));
 
     }
