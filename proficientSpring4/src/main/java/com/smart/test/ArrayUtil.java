@@ -1,5 +1,7 @@
 package com.smart.test;
 
+import java.util.ArrayList;
+
 public class ArrayUtil {
 
     public int findStartIndex(int[] dist, int[] search) throws Exception{
@@ -83,5 +85,47 @@ public class ArrayUtil {
             }
         }
         return number;
+    }
+
+    /**
+     * Recursively traverse the child nodes of tree
+     * @param rootIndex root node index of dist array
+     * @param searchValue A value of search array
+     * @param search search array
+     * @param dist dist array
+     * @param childNode Tree node for recursively traverse
+     */
+    public ChildNode visitTree(int rootIndex,int searchValue,int[] search,int[] dist,ChildNode childNode){
+        int nextIndex=findIndexByValue(searchValue,rootIndex,dist);
+//        ChildNode childNode=new ChildNode(rootIndex);
+        ArrayList<ChildNode> childNodes=new ArrayList<>();
+        while (nextIndex!=-1){
+            ChildNode nextChildNode=new ChildNode(nextIndex);
+            int nextValue=getNextValue(searchValue,search);
+            if (nextValue!=-1){
+                nextChildNode=visitTree(nextIndex,nextValue,search,dist,nextChildNode);
+                childNodes.add(nextChildNode);
+            }else {
+                break;
+            }
+        }
+        return childNode;
+    }
+
+    /**
+     * Get next value of search array via searchValue
+     * @param searchValue
+     * @param search
+     * @return
+     */
+    private int getNextValue(int searchValue,int[] search) {
+        int nextValue=-1;
+        for (int i = 0; i < search.length; i++) {
+            if (searchValue==search[i]&&(i+1)<search.length){
+                nextValue=search[i+1];
+                break;
+            }
+        }
+        return nextValue;
     }
 }
