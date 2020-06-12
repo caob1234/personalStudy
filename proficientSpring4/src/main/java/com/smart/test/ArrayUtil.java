@@ -97,14 +97,14 @@ public class ArrayUtil {
      */
     public void visitTree(int rootIndex,int searchValue,int[] search,int[] dist,ChildNode childNode){
         int nextIndex=findIndexByValue(searchValue,rootIndex,dist);
-        ChildNode nextChildNode=new ChildNode(nextIndex);
         while (nextIndex!=-1){
+            ChildNode nextChildNode=new ChildNode(nextIndex);
             int nextValue=getNextValue(searchValue,search);
             childNode.childNodes.add(nextChildNode);
             if (nextValue!=-1){
                 visitTree(nextIndex,nextValue,search,dist,nextChildNode);
 
-
+                nextIndex=findIndexByValue(dist[nextChildNode.data],nextChildNode.data,dist);
                 //code
 
             }else {
