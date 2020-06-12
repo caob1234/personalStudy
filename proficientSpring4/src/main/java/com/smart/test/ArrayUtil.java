@@ -95,21 +95,27 @@ public class ArrayUtil {
      * @param dist dist array
      * @param childNode Tree node for recursively traverse
      */
-    public ChildNode visitTree(int rootIndex,int searchValue,int[] search,int[] dist,ChildNode childNode){
+    public void visitTree(int rootIndex,int searchValue,int[] search,int[] dist,ChildNode childNode){
         int nextIndex=findIndexByValue(searchValue,rootIndex,dist);
-//        ChildNode childNode=new ChildNode(rootIndex);
-        ArrayList<ChildNode> childNodes=new ArrayList<>();
+        ChildNode nextChildNode=new ChildNode(nextIndex);
         while (nextIndex!=-1){
-            ChildNode nextChildNode=new ChildNode(nextIndex);
             int nextValue=getNextValue(searchValue,search);
+            childNode.childNodes.add(nextChildNode);
             if (nextValue!=-1){
-                nextChildNode=visitTree(nextIndex,nextValue,search,dist,nextChildNode);
-                childNodes.add(nextChildNode);
+                visitTree(nextIndex,nextValue,search,dist,nextChildNode);
+
+
+                //code
+
             }else {
+                int index=findIndexByValue(searchValue,nextChildNode.data,dist);
+                while (index!=-1){
+                    childNode.childNodes.add(new ChildNode(index));
+                    index=findIndexByValue(searchValue,index,dist);
+                }
                 break;
             }
         }
-        return childNode;
     }
 
     /**

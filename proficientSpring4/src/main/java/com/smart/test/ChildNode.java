@@ -8,6 +8,7 @@ public class ChildNode {
 
     public ChildNode(int data) {
         this.data = data;
+        this.childNodes=new ArrayList<>();
     }
 
     public ChildNode(int data, ArrayList<ChildNode> childNodes) {

@@ -57,21 +57,27 @@ public class ArrayUtilTest {
 //        secondNext.add(new CSNode(secondIndex2,new CSNode(threeIndex21)));
 //        csNode.nextSibling=secondNext;
 
-        CSNode csNode=new CSNode(arrayUtil.findIndexByValue(search[0],0,dist));
-        CSNode firstChild;
-        for (int i = 1; i < search.length; i++) {
-            int index=arrayUtil.findIndexByValue(search[i],csNode.data,dist);
-            csNode.firstChild=new CSNode(index);
-            LinkedList<CSNode> nextSibling=new LinkedList<>();
-            nextSibling.add(new CSNode(arrayUtil.findIndexByValue(search[i],
-                    csNode.firstChild.data,dist)));
-            while (arrayUtil.findIndexByValue(search[i],
-                    csNode.nextSibling.get(0).data,dist)!=-1){
-                nextSibling.add(new CSNode(arrayUtil.findIndexByValue(search[1],
-                        csNode.nextSibling.get(0).data,dist)));
-            }
-            csNode.nextSibling=nextSibling;
-        }
+//        CSNode csNode=new CSNode(arrayUtil.findIndexByValue(search[0],0,dist));
+//        CSNode firstChild;
+//        for (int i = 1; i < search.length; i++) {
+//            int index=arrayUtil.findIndexByValue(search[i],csNode.data,dist);
+//            csNode.firstChild=new CSNode(index);
+//            LinkedList<CSNode> nextSibling=new LinkedList<>();
+//            nextSibling.add(new CSNode(arrayUtil.findIndexByValue(search[i],
+//                    csNode.firstChild.data,dist)));
+//            while (arrayUtil.findIndexByValue(search[i],
+//                    csNode.nextSibling.get(0).data,dist)!=-1){
+//                nextSibling.add(new CSNode(arrayUtil.findIndexByValue(search[1],
+//                        csNode.nextSibling.get(0).data,dist)));
+//            }
+//            csNode.nextSibling=nextSibling;
+//        }
+
+        int rootIndex=arrayUtil.findIndexByValue(search[0],0,dist);
+        ChildNode childNode=new ChildNode(rootIndex);
+//        for (int i = 1; i <search.length ; i++) {
+            arrayUtil.visitTree(rootIndex,search[1],search,dist,childNode);
+//        }
 
         System.out.println(arrayUtil.indexOf(search,dist));
 
