@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        Socket client=new Socket("127.0.0.1",2003);
+        Socket client=new Socket("104.168.219.106",2003);
 //        Scanner input=new Scanner(System.in);
         OutputStream os=client.getOutputStream();
         while(true){
