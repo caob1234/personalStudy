@@ -1,4 +1,4 @@
-package com.smart.data.structure;
+package com.smart.data.structure.one;
 
 public class Bubble {
     public static int[] bubble(int[] a){
