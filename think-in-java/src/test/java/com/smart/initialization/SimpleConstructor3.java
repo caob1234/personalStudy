@@ -1,4 +1,4 @@
-package com.smart;
+package com.smart.initialization;
 class Rock{
     public String getStr2() {
         return str2;
