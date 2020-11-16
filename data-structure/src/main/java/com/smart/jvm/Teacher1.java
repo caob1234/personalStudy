@@ -10,9 +10,7 @@ public class Teacher1 {
     }
 
     static Teacher1 teacher1=new Teacher1();
-    static {
-        System.out.println("teacher static code block");
-    }
+
     {
         System.out.println("teacher common code block");
     }
@@ -23,4 +21,8 @@ public class Teacher1 {
     }
     int age=24;
     static String name="Tony";
+    static {
+        System.out.println("teacher static code block");
+    }
+
 }
