@@ -19,5 +19,6 @@ public class TestOptional {
         System.out.println(optionalS1.orElse("This is null"));
         System.out.println(optionalS.isPresent()+"|"+optionalS1.isPresent());
         System.out.println(FlowLockStatus.values()[0]);
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 }
