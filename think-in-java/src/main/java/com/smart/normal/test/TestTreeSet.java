@@ -1,5 +1,8 @@
 package com.smart.normal.test;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class TestTreeSet {
@@ -14,5 +17,10 @@ public class TestTreeSet {
         subSet = (TreeSet)set.subSet(608,true,611,true);
         set.add(629);
         System.out.println(set+" "+subSet);
+        Map map=new TreeMap();
+        map.put(1,"hello");
+        map.put(2,"world");
+        HashMap hashMap=new HashMap();
+        hashMap.put(1,"hashMap");
     }
 }

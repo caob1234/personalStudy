@@ -1,5 +1,7 @@
 package com.smart.listStackQueue;
 
+import org.omg.CORBA.Any;
+
 import java.util.Iterator;
 
 public class MyLinkedList<AnyType> implements Iterable<AnyType> {
@@ -67,6 +69,13 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         p.prev=newNode;
         theSize++;
         modCount++;
+    }
+    private AnyType remove(Node<AnyType> p,AnyType x){
+        p.next.prev=p.prev;
+        p.prev.next=p.next;
+        theSize--;
+        modCount++;
+        return p.data;
     }
 
     public Iterator<AnyType> iterator() {
