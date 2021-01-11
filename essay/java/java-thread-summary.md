@@ -16,7 +16,9 @@ SynchronousQueue：没有容量，直接提交线程池执行。
 
 ArrayBlockingQueue：有界队列，如果该队列已满，则将出发拒绝策略。
 
-LinkedBlockingQueue：无界队列，如果该队列保持高速增长，会耗尽系统内存。
+LinkedBlockingQueue：一个由链表组成的有界队列，此队列的默认长度为Integer.MAX_VALUE。
+
+LinkedTransferQueue：一个由链表组成的无界阻塞队列。
 
 PriorityBlockingQueue：该队列可以根据任务自身的优先级顺序执行。
 ##2.拒绝策略policy
@@ -30,6 +32,18 @@ DiscardPolicy：该策略默默丢弃无法处理的任务，不予任何处理�
 
 如以上策略仍然无法满足实际应用的需要，可以自己扩展RejectedExecutionHandler。
 
+##3.设置线程池数量
+
+Ncpu=CPU的数量
+Ucpu=目标cpu的使用率，0<=Ucpu<=1
+W/C=等待时间与计算时间的比率
+
+Nthreads=Ncpu*Ucpu*(1+W/C)
+
+一般情况下io密集型的设置为2*Ncpu，cpu密集型的设置为Ncpu。Ncpu的个数可以通过以下代码获得:
+```
+Runtime.getRuntime().availableProcessors();
+```
 **参考资料：**
 a.《计算机操作系统》——汤子瀛 哲凤屏 汤小丹——Page 41
-b.《实战Java高并发程序设计（第2版）》——葛一鸣——Page 110、112、113
+b.《实战Java高并发程序设计（第2版）》——葛一鸣——Page 110、112、113、119
