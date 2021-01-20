@@ -10,19 +10,27 @@ import java.util.Map;
  * @version 1.0, 2020/10/12
  */
 public class HashTest<K,V> {
+    private int value;
     public static void main(String[] args){
         String s="abcd";
         String s1=new String("abcd");
         System.out.println("--------"+s.hashCode()+"-------"+getHashValue(s));
         System.out.println("dcba".hashCode());
-        Map<String,String> map=new HashMap<String, String>();
+        HashMap<Object,String> map=new HashMap<Object, String>();
         map.put("1","hello");
-        map.put("2","world");
-        System.out.println(map.get("1").hashCode());
+        map.put("1","world");
+        System.out.println(map.get("1"));
         System.out.println(getHashValue("1")+"|"+"1".hashCode());
         System.out.println(map.get("1")+" "+map.get("2"));
         System.out.println(s.equals(s1));
         System.out.println(s==s1);
+        HashTest o1=new HashTest();
+        o1.setValue(3);
+        HashTest o2=new HashTest();
+        o2.setValue(3);
+        System.out.println(o1.hashCode()+"-------"+o2.hashCode());
+        System.out.println(o1.equals(o2)+"-------"+(o1==o2));
+        System.out.println(hash(s)+"-------"+hash(s1));
     }
     public static int getHashValue(String s){
         int g=31;
@@ -32,6 +40,18 @@ public class HashTest<K,V> {
             hash=g*hash+s.charAt(i);
         }
         return hash;
+    }
+
+    public static int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+    }
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 //    public int getHashIndex(K key){
 //        int hashIndex=key.hashCode()%hashTable.length;

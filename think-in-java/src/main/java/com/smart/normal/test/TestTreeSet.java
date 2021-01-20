@@ -6,6 +6,11 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class TestTreeSet {
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
     public static void main(String[] args){
         TreeSet<Integer> set = new TreeSet<Integer>();
         TreeSet<Integer> subSet = new TreeSet<Integer>();
@@ -22,5 +27,8 @@ public class TestTreeSet {
         map.put(2,"world");
         HashMap hashMap=new HashMap();
         hashMap.put(1,"hashMap");
+        Object o=new Object();
+        System.out.println(o.hashCode());
+        String
     }
 }
