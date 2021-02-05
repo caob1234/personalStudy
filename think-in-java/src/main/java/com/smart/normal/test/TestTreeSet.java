@@ -29,6 +29,5 @@ public class TestTreeSet {
         hashMap.put(1,"hashMap");
         Object o=new Object();
         System.out.println(o.hashCode());
-        String
     }
 }
