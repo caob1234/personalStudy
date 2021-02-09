@@ -1,0 +1,12 @@
+server:
+    port: 8881
+---
+spring:
+    profiles: test
+server:
+    port: 8882
+---
+spring:
+    profiles: prod
+server:
+    port: 8883
