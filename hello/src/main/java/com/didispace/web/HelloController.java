@@ -11,7 +11,7 @@ public class HelloController {
     private Book book;
     @RequestMapping("hello")
     public String index(){
-        return "Hello world";
+        return book.getName();
     }
     @RequestMapping("desc")
     public String desc(){

@@ -1,6 +1,4 @@
-package com.smart.listStackQueue;
-
-import org.omg.CORBA.Any;
+package com.smart.data.structure.listStackQueue;
 
 import java.util.Iterator;
 
