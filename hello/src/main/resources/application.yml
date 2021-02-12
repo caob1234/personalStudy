@@ -1,5 +1,7 @@
 server:
     port: 8881
+book:
+    desc: ${book.author} is writhing 《 ${book.name} 》 #UTF-8
 ---
 spring:
     profiles: test
