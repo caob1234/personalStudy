@@ -1,9 +1,9 @@
-package com.smart.algorithm.interview;
+package com.smart.algorithm.interview.two;
 
 import java.util.HashMap;
 import java.util.Map;
 /**
- * java程序员面试宝典-算法宝典——page76
+ * java程序员面试宝典-算法宝典——page78
  */
 public class Itinerary {
     private static void printResult(Map<String,String> input){
@@ -24,10 +24,8 @@ public class Itinerary {
         }
         String to=input.get(start);
         System.out.print(start+"->"+to);
-//        to=input.get(to);
         while (input.get(to)!=null){
             System.out.print(","+to+"->"+input.get(to));
-//            start=to;
             to=input.get(to);
         }
     }

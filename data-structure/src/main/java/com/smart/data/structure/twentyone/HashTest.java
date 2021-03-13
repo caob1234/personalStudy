@@ -31,6 +31,13 @@ public class HashTest<K,V> {
         System.out.println(o1.hashCode()+"-------"+o2.hashCode());
         System.out.println(o1.equals(o2)+"-------"+(o1==o2));
         System.out.println(hash(s)+"-------"+hash(s1));
+        HashMap<HashTest,String> map1=new HashMap<>();
+        map1.put(new HashTest(),"first");
+        map1.put(new HashTest(),"second");
+        int i1=new HashTest().hashCode();
+        int i2=i1>>>16;
+        System.out.println(i1^i2);
+        System.out.println(67^3);
     }
     public static int getHashValue(String s){
         int g=31;
