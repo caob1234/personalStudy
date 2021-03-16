@@ -2,6 +2,13 @@ server:
     port: 8881
 book:
     desc: ${book.author} is writhing 《 ${book.name} 》 #UTF-8
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+---
+                exclude: "env,beans"
 ---
 spring:
     profiles: test
